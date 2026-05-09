@@ -5,179 +5,1330 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="合同会社KK企画は、各種商品の販売を通じて暮らしと事業を支える販売業者です。"
+      content="合同会社KK企画は、各種商品の販売、仕入れ、取引サポートを行う札幌市の販売業者です。"
     />
     <title>合同会社KK企画 | 公式ホームページ</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Bodoni+Moda:ital,wght@0,500;0,700;1,500&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #08080a;
+        --bg-2: #0f1013;
+        --ink: #f5f1e8;
+        --ink-soft: rgba(245, 241, 232, 0.68);
+        --gold: #ffd166;
+        --gold-deep: #d4a017;
+        --rule: rgba(245, 241, 232, 0.14);
+        --grid: "JetBrains Mono", ui-monospace, monospace;
+        --jp: "Zen Kaku Gothic New", sans-serif;
+        --display: "Bodoni Moda", serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        overflow-x: hidden;
+        color: var(--ink);
+        font-family: var(--jp);
+        line-height: 1.8;
+        background: var(--bg);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      body::before {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background-image:
+          linear-gradient(rgba(245, 241, 232, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(245, 241, 232, 0.04) 1px, transparent 1px);
+        background-size: 80px 80px;
+        content: "";
+        mask-image: radial-gradient(ellipse at center, black 28%, transparent 80%);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      .blob {
+        position: fixed;
+        z-index: 1;
+        width: 560px;
+        height: 560px;
+        border-radius: 50%;
+        pointer-events: none;
+        background: radial-gradient(circle, rgba(255, 209, 102, 0.22), transparent 60%);
+        filter: blur(42px);
+        transform: translate(-50%, -50%);
+        transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.3, 1);
+      }
+
+      .progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 60;
+        width: 0;
+        height: 2px;
+        background: var(--gold);
+      }
+
+      .header {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 50;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 30px;
+        align-items: center;
+        padding: 20px clamp(20px, 4vw, 40px);
+        transition: background 180ms ease, border-color 180ms ease;
+      }
+
+      .header.scrolled,
+      .header.open {
+        border-bottom: 1px solid var(--rule);
+        background: rgba(8, 8, 10, 0.88);
+        backdrop-filter: blur(16px);
+      }
+
+      .brand {
+        display: flex;
+        min-width: 0;
+        align-items: center;
+        gap: 12px;
+        font-family: var(--grid);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0;
+      }
+
+      .brand .mark {
+        display: grid;
+        width: 38px;
+        height: 38px;
+        flex: 0 0 auto;
+        place-items: center;
+        border-radius: 50%;
+        color: var(--bg);
+        font-family: var(--display);
+        font-size: 22px;
+        font-style: italic;
+        font-weight: 700;
+        background: var(--gold);
+        animation: rotate 24s linear infinite;
+      }
+
+      @keyframes rotate {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .nav {
+        display: flex;
+        justify-content: center;
+        gap: clamp(18px, 3vw, 32px);
+        color: var(--ink-soft);
+        font-family: var(--grid);
+        font-size: 11px;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .nav a {
+        padding: 6px 0;
+        transition: color 180ms ease;
+      }
+
+      .nav a:hover {
+        color: var(--gold);
+      }
+
+      .nav-cta,
+      .menu-button {
+        border: 0;
+        border-radius: 999px;
+        color: var(--bg);
+        font-family: var(--grid);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0;
+        background: var(--gold);
+      }
+
+      .nav-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 11px 22px;
+      }
+
+      .menu-button {
+        display: none;
+        min-height: 40px;
+        padding: 0 16px;
+      }
+
+      .hero {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        min-height: 100vh;
+        grid-template-rows: 1fr auto;
+        padding: 132px clamp(20px, 5vw, 52px) 76px;
+        overflow: hidden;
+      }
+
+      .hero-mesh {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background:
+          radial-gradient(circle at 18% 28%, rgba(255, 209, 102, 0.18), transparent 38%),
+          radial-gradient(circle at 82% 62%, rgba(80, 120, 180, 0.16), transparent 42%),
+          radial-gradient(circle at 50% 92%, rgba(255, 209, 102, 0.1), transparent 52%);
+        animation: mesh 16s ease-in-out infinite alternate;
+      }
+
+      @keyframes mesh {
+        to {
+          transform: scale(1.14) rotate(2deg);
+        }
+      }
+
+      .hero-art {
+        position: absolute;
+        right: clamp(20px, 7vw, 90px);
+        bottom: clamp(120px, 12vw, 170px);
+        width: min(42vw, 520px);
+        min-width: 280px;
+        overflow: hidden;
+        border: 1px solid var(--rule);
+        background: var(--bg-2);
+        box-shadow: 0 28px 90px rgba(0, 0, 0, 0.38);
+      }
+
+      .hero-art img {
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        object-fit: cover;
+        opacity: 0.76;
+      }
+
+      .hero-art::after {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(8, 8, 10, 0.15), rgba(8, 8, 10, 0.72));
+        content: "";
+      }
+
+      .hero-stamp-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 48px;
+        color: var(--ink-soft);
+        font-family: var(--grid);
+        font-size: 11px;
+        letter-spacing: 0;
+      }
+
+      .pulse {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .pulse::before {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--gold);
+        box-shadow: 0 0 0 0 rgba(255, 209, 102, 0.6);
+        content: "";
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        70% {
+          box-shadow: 0 0 0 14px rgba(255, 209, 102, 0);
+        }
+      }
+
+      .hero-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 30px;
+        border: 1px solid var(--rule);
+        border-radius: 999px;
+        padding: 8px 18px;
+        color: var(--ink);
+        font-family: var(--grid);
+        font-size: 11px;
+        letter-spacing: 0;
+        background: rgba(245, 241, 232, 0.06);
+      }
+
+      .hero-tag b {
+        border-radius: 999px;
+        padding: 3px 10px;
+        color: var(--bg);
+        background: var(--gold);
+      }
+
+      h1,
+      h2,
+      h3,
+      p,
+      dd {
+        overflow-wrap: anywhere;
+      }
+
+      h1 {
+        position: relative;
+        z-index: 2;
+        width: min(980px, 100%);
+        margin: 0;
+        font-size: clamp(52px, 10vw, 172px);
+        font-weight: 900;
+        line-height: 0.94;
+        letter-spacing: 0;
+      }
+
+      h1 .ital {
+        color: var(--gold);
+        font-family: var(--display);
+        font-style: italic;
+        font-weight: 500;
+      }
+
+      h1 .out {
+        color: transparent;
+        font-family: var(--display);
+        font-style: italic;
+        -webkit-text-stroke: 2px var(--ink);
+      }
+
+      .hero-foot {
+        position: relative;
+        z-index: 3;
+        display: grid;
+        grid-template-columns: 1.1fr auto auto;
+        gap: clamp(24px, 5vw, 60px);
+        align-items: end;
+        margin-top: 62px;
+        border-top: 1px solid var(--rule);
+        padding-top: 34px;
+      }
+
+      .hero-lead {
+        max-width: 620px;
+        margin: 0;
+        color: var(--ink-soft);
+        font-size: 15px;
+        line-height: 1.95;
+      }
+
+      .hero-stat {
+        border-left: 1px solid var(--rule);
+        padding-left: 24px;
+        color: var(--ink-soft);
+        font-family: var(--grid);
+        font-size: 11px;
+        line-height: 1.9;
+        text-align: right;
+      }
+
+      .hero-stat b {
+        display: block;
+        color: var(--gold);
+        font-family: var(--display);
+        font-size: 42px;
+        font-style: italic;
+        font-weight: 500;
+        line-height: 1;
+      }
+
+      .hero-cta,
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        border-radius: 999px;
+        padding: 18px 28px;
+        color: var(--bg);
+        font-family: var(--grid);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0;
+        background: var(--gold);
+        transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+      }
+
+      .hero-cta:hover,
+      .btn:hover {
+        transform: translate(2px, -2px);
+        box-shadow: -4px 4px 0 var(--ink);
+      }
+
+      .ticker {
+        position: relative;
+        z-index: 3;
+        overflow: hidden;
+        color: var(--bg);
+        background: var(--gold);
+      }
+
+      .ticker-track {
+        display: flex;
+        width: max-content;
+        animation: scroll 28s linear infinite;
+      }
+
+      .ticker-track > span {
+        display: inline-flex;
+      }
+
+      .ticker-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 28px;
+        border-right: 1px solid rgba(0, 0, 0, 0.18);
+        padding: 18px 30px;
+        font-family: var(--display);
+        font-size: 24px;
+        font-style: italic;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .ticker-item b {
+        border-radius: 999px;
+        padding: 4px 10px;
+        color: var(--gold);
+        font-family: var(--grid);
+        font-size: 12px;
+        font-style: normal;
+        background: var(--bg);
+      }
+
+      @keyframes scroll {
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      .section {
+        position: relative;
+        z-index: 2;
+        width: min(1320px, 100%);
+        margin: 0 auto;
+        padding: clamp(92px, 11vw, 140px) clamp(20px, 5vw, 52px);
+      }
+
+      .sec-head {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 40px;
+        align-items: end;
+        margin-bottom: 70px;
+      }
+
+      .sec-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--gold);
+        font-family: var(--grid);
+        font-size: 11px;
+        letter-spacing: 0;
+      }
+
+      .sec-tag::before {
+        width: 24px;
+        height: 1px;
+        background: var(--gold);
+        content: "";
+      }
+
+      h2 {
+        margin: 18px 0 0;
+        font-size: clamp(34px, 5.5vw, 78px);
+        font-weight: 900;
+        line-height: 1.08;
+        letter-spacing: 0;
+      }
+
+      h2 .it {
+        color: var(--gold);
+        font-family: var(--display);
+        font-style: italic;
+        font-weight: 500;
+      }
+
+      .sec-side {
+        color: var(--ink-soft);
+        font-family: var(--grid);
+        font-size: 11px;
+        line-height: 1.8;
+        text-align: right;
+      }
+
+      .sec-side b {
+        display: block;
+        color: var(--gold);
+        font-family: var(--display);
+        font-size: 28px;
+        font-style: italic;
+        font-weight: 500;
+      }
+
+      .svc-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .svc {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--rule);
+        padding: clamp(28px, 4vw, 42px);
+        background: linear-gradient(180deg, var(--bg-2), var(--bg));
+        transition: color 260ms ease, transform 260ms ease;
+      }
+
+      .svc::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        width: 100%;
+        height: 0;
+        background: var(--gold);
+        content: "";
+        transition: height 420ms cubic-bezier(0.2, 0.7, 0.3, 1);
+      }
+
+      .svc:hover {
+        color: var(--bg);
+        transform: translateY(-4px);
+      }
+
+      .svc:hover::before {
+        height: 100%;
+      }
+
+      .svc-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 44px;
+      }
+
+      .svc-no {
+        color: var(--gold);
+        font-family: var(--display);
+        font-size: 64px;
+        font-style: italic;
+        font-weight: 500;
+        line-height: 1;
+      }
+
+      .svc:hover .svc-no,
+      .svc:hover .svc-body,
+      .svc:hover .svc-name small {
+        color: var(--bg);
+      }
+
+      .svc-arrow {
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border: 1px solid currentColor;
+        border-radius: 50%;
+        transition: transform 260ms ease, background 260ms ease, color 260ms ease;
+      }
+
+      .svc:hover .svc-arrow {
+        color: var(--gold);
+        background: var(--bg);
+        transform: rotate(-45deg) scale(1.1);
+      }
+
+      .svc-name {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 18px;
+        align-items: baseline;
+        margin-bottom: 14px;
+      }
+
+      h3 {
+        margin: 0;
+        font-size: clamp(26px, 3vw, 42px);
+        font-weight: 900;
+        line-height: 1.12;
+      }
+
+      .svc-name small {
+        color: var(--gold);
+        font-family: var(--display);
+        font-size: 18px;
+        font-style: italic;
+      }
+
+      .svc-body {
+        max-width: 520px;
+        margin: 0 0 22px;
+        color: var(--ink-soft);
+        font-size: 14px;
+        line-height: 1.95;
+      }
+
+      .svc-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .svc-tags span {
+        border: 1px solid var(--rule);
+        padding: 5px 9px;
+        color: var(--ink-soft);
+        font-family: var(--grid);
+        font-size: 10px;
+      }
+
+      .svc:hover .svc-tags span {
+        border-color: rgba(0, 0, 0, 0.25);
+        color: var(--bg);
+      }
+
+      .nums {
+        position: relative;
+        z-index: 2;
+        border-top: 1px solid var(--rule);
+        border-bottom: 1px solid var(--rule);
+        padding: 104px clamp(20px, 5vw, 52px);
+        background: var(--bg-2);
+      }
+
+      .nums-grid {
+        display: grid;
+        width: min(1320px, 100%);
+        grid-template-columns: repeat(4, 1fr);
+        margin: 0 auto;
+      }
+
+      .num {
+        border-right: 1px solid var(--rule);
+        padding: 20px 24px;
+        text-align: center;
+      }
+
+      .num:last-child {
+        border-right: 0;
+      }
+
+      .num b {
+        display: block;
+        color: var(--gold);
+        font-family: var(--display);
+        font-size: clamp(48px, 6.5vw, 108px);
+        font-style: italic;
+        font-weight: 500;
+        line-height: 1;
+      }
+
+      .num small {
+        display: block;
+        margin-top: 14px;
+        color: var(--ink-soft);
+        font-family: var(--grid);
+        font-size: 10px;
+      }
+
+      .str-list {
+        border-top: 1px solid var(--rule);
+      }
+
+      .str-item {
+        display: grid;
+        grid-template-columns: auto 1fr 1fr;
+        gap: clamp(26px, 5vw, 60px);
+        align-items: start;
+        border-bottom: 1px solid var(--rule);
+        padding: 48px 0;
+        transition: background 260ms ease, padding 260ms ease;
+      }
+
+      .str-item:hover {
+        padding-right: 24px;
+        padding-left: 24px;
+        background: linear-gradient(90deg, rgba(255, 209, 102, 0.08), transparent 70%);
+      }
+
+      .str-no {
+        color: var(--gold);
+        font-family: var(--display);
+        font-size: 64px;
+        font-style: italic;
+        line-height: 1;
+      }
+
+      .str-h {
+        font-size: clamp(22px, 2.8vw, 30px);
+        line-height: 1.35;
+      }
+
+      .str-h em {
+        color: var(--gold);
+        font-style: normal;
+      }
+
+      .str-p {
+        margin: 0;
+        color: var(--ink-soft);
+        font-size: 14px;
+        line-height: 2;
+      }
+
+      .news-list {
+        border-top: 1px solid var(--rule);
+      }
+
+      .news {
+        display: grid;
+        grid-template-columns: 130px 110px 1fr auto;
+        gap: 30px;
+        align-items: center;
+        border-bottom: 1px solid var(--rule);
+        padding: 22px 0;
+        font-size: 14px;
+        transition: background 220ms ease, padding 220ms ease;
+      }
+
+      .news:hover {
+        padding-left: 18px;
+        background: linear-gradient(90deg, rgba(255, 209, 102, 0.06), transparent);
+      }
+
+      .news time {
+        color: var(--ink-soft);
+        font-family: var(--grid);
+        font-size: 12px;
+      }
+
+      .news .cat {
+        border-radius: 999px;
+        padding: 5px 10px;
+        color: var(--bg);
+        font-family: var(--grid);
+        font-size: 9px;
+        font-weight: 700;
+        text-align: center;
+        background: var(--gold);
+      }
+
+      .news .arr {
+        color: var(--gold);
+        font-family: var(--grid);
+        font-size: 18px;
+      }
+
+      .company {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: clamp(38px, 6vw, 70px);
+        align-items: start;
+      }
+
+      .company dl {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        margin: 0;
+        border-top: 1px solid var(--rule);
+      }
+
+      .company dt,
+      .company dd {
+        border-bottom: 1px solid var(--rule);
+        padding: 20px 0;
+        font-size: 14px;
+      }
+
+      .company dt {
+        align-self: center;
+        color: var(--gold);
+        font-family: var(--grid);
+        font-size: 11px;
+      }
+
+      .company dd {
+        margin: 0;
+        font-weight: 500;
+      }
+
+      .company-card {
+        position: relative;
+        overflow: hidden;
+        border: 1px solid var(--rule);
+        padding: 38px;
+        background: var(--bg-2);
+      }
+
+      .company-card::before {
+        position: absolute;
+        top: -40px;
+        right: -40px;
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 209, 102, 0.18), transparent 70%);
+        content: "";
+      }
+
+      .company-card .em {
+        color: var(--gold);
+        font-family: var(--display);
+        font-size: 88px;
+        font-style: italic;
+        line-height: 1;
+      }
+
+      .company-card h3 {
+        margin: 18px 0 10px;
+        font-size: 24px;
+      }
+
+      .company-card p {
+        margin: 0;
+        color: var(--ink-soft);
+        font-size: 14px;
+        line-height: 1.95;
+      }
+
+      .map {
+        position: relative;
+        height: 180px;
+        margin-top: 26px;
+        overflow: hidden;
+        border: 1px solid var(--rule);
+      }
+
+      .map svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .contact {
+        position: relative;
+        z-index: 2;
+        padding: clamp(110px, 13vw, 160px) clamp(20px, 5vw, 52px) 100px;
+        text-align: center;
+      }
+
+      .contact-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 30px;
+        color: var(--gold);
+        font-family: var(--grid);
+        font-size: 11px;
+      }
+
+      .contact-eyebrow::before,
+      .contact-eyebrow::after {
+        width: 30px;
+        height: 1px;
+        background: var(--gold);
+        content: "";
+      }
+
+      .contact h2 {
+        margin: 0;
+        font-size: clamp(44px, 9vw, 146px);
+        line-height: 0.96;
+      }
+
+      .contact-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 58px;
+      }
+
+      .btn.ghost {
+        border: 1px solid var(--rule);
+        color: var(--ink);
+        background: transparent;
+      }
+
+      .btn.ghost:hover {
+        border-color: var(--gold);
+        color: var(--gold);
+        box-shadow: none;
+      }
+
+      .footer {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 24px;
+        align-items: center;
+        border-top: 1px solid var(--rule);
+        padding: 44px clamp(20px, 5vw, 52px);
+        color: var(--ink-soft);
+        font-family: var(--grid);
+        font-size: 11px;
+      }
+
+      .footer .em {
+        color: var(--gold);
+        font-family: var(--display);
+        font-size: 24px;
+        font-style: italic;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 700ms cubic-bezier(0.2, 0.7, 0.3, 1), transform 700ms cubic-bezier(0.2, 0.7, 0.3, 1);
+      }
+
+      .reveal.in {
+        opacity: 1;
+        transform: none;
+      }
+
+      @media (max-width: 980px) {
+        .header {
+          grid-template-columns: auto auto;
+        }
+
+        .nav,
+        .nav-cta {
+          display: none;
+        }
+
+        .menu-button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          justify-self: end;
+        }
+
+        .nav.open {
+          position: absolute;
+          top: 72px;
+          right: 18px;
+          left: 18px;
+          display: grid;
+          gap: 12px;
+          justify-content: stretch;
+          border: 1px solid var(--rule);
+          padding: 18px;
+          color: var(--ink);
+          background: rgba(8, 8, 10, 0.96);
+        }
+
+        .hero-art {
+          right: -70px;
+          bottom: 210px;
+          width: 380px;
+          opacity: 0.42;
+        }
+
+        .hero-foot,
+        .svc-grid,
+        .str-item,
+        .company,
+        .nums-grid,
+        .sec-head {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-stat {
+          border-left: 0;
+          padding-left: 0;
+          text-align: left;
+        }
+
+        .num {
+          border-right: 0;
+          border-bottom: 1px solid var(--rule);
+        }
+
+        .num:last-child {
+          border-bottom: 0;
+        }
+
+        .news {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+
+        .company dl {
+          grid-template-columns: 1fr;
+        }
+
+        .footer {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .brand span:last-child {
+          max-width: 210px;
+        }
+
+        .hero-stamp-row {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .hero-cta,
+        .btn {
+          width: 100%;
+        }
+
+        .ticker-item {
+          padding: 14px 20px;
+          font-size: 20px;
+        }
+      }
+    </style>
   </head>
   <body>
-    <header class="site-header" data-header>
-      <a class="brand" href="#top" aria-label="合同会社KK企画 ホーム">
-        <span class="brand-mark">K</span>
-        <span>合同会社KK企画</span>
+    <div class="blob" id="blob"></div>
+    <div class="progress" id="progress"></div>
+
+    <header class="header" id="header">
+      <a href="#top" class="brand" aria-label="合同会社KK企画 ホーム">
+        <span class="mark">K</span>
+        <span>合同会社KK企画 ／ <span style="color: var(--ink-soft)">KK KIKAKU</span></span>
       </a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <nav class="site-nav" id="site-nav" data-nav>
-        <a href="#services">事業内容</a>
-        <a href="#strengths">強み</a>
-        <a href="#company">会社概要</a>
-        <a href="#contact">お問い合わせ</a>
+      <nav class="nav" id="nav">
+        <a href="#services">Services</a>
+        <a href="#strengths">Strengths</a>
+        <a href="#news">News</a>
+        <a href="#company">Company</a>
+        <a href="#contact">Contact</a>
       </nav>
+      <a href="#contact" class="nav-cta">CONTACT →</a>
+      <button class="menu-button" type="button" id="menuButton" aria-expanded="false" aria-controls="nav">MENU</button>
     </header>
 
     <main id="top">
-      <section class="hero" aria-label="トップ">
-        <img class="hero-image" src="assets/hero-office.png" alt="明るいオフィスの風景" />
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-          <p class="eyebrow">Sales / Sourcing / Service</p>
-          <h1>必要な商品を、確かな対応でお届けします。</h1>
-          <p class="hero-lead">
-            合同会社KK企画は、各種商品の販売と仕入れを通じて、お客様の暮らしと事業を支える販売業者です。
-          </p>
-          <div class="hero-actions">
-            <a class="button primary" href="#contact">相談する</a>
-            <a class="button secondary" href="#services">事業を見る</a>
-          </div>
+      <section class="hero">
+        <div class="hero-mesh"></div>
+        <div class="hero-art" aria-hidden="true">
+          <img src="assets/hero-office.png" alt="" />
         </div>
-      </section>
 
-      <section class="section intro">
-        <div class="section-inner intro-grid">
-          <div>
-            <p class="eyebrow">About</p>
-            <h2>誠実な取引と丁寧な対応を大切にする販売会社です。</h2>
+        <div>
+          <div class="hero-stamp-row">
+            <span class="pulse">SAPPORO ／ SALES & SOURCING COMPANY</span>
+            <span>OFFICIAL SITE ／ 2026</span>
           </div>
-          <p>
-            商品の仕入れ、販売、納品までを一つひとつ丁寧に進めます。
+          <span class="hero-tag"><b>NEW</b><span>合同会社KK企画 ／ Sales Partner</span></span>
+          <h1>
+            必要な商品を、<br />
+            <span class="ital">確かな対応</span>で<br />
+            <span class="out">お届けする。</span>
+          </h1>
+        </div>
+
+        <div class="hero-foot">
+          <p class="hero-lead">
+            合同会社KK企画は、各種商品の販売、仕入れ、取引サポートを行う札幌市の販売業者です。
             お客様のご要望に合わせて、安心してご利用いただける商品とサービスの提供に努めています。
           </p>
+          <div class="hero-stat"><b>03</b>BUSINESS<br />SERVICES</div>
+          <a href="#contact" class="hero-cta">お問い合わせ <span>→</span></a>
         </div>
       </section>
 
-      <section class="section muted" id="services">
-        <div class="section-inner">
-          <div class="section-heading">
-            <p class="eyebrow">Services</p>
-            <h2>事業内容</h2>
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker-track">
+          <span>
+            <span class="ticker-item"><b>01</b>Product Sales</span>
+            <span class="ticker-item"><b>02</b>Sourcing</span>
+            <span class="ticker-item"><b>03</b>Transaction Support</span>
+            <span class="ticker-item"><b>04</b>Sapporo Based</span>
+          </span>
+          <span>
+            <span class="ticker-item"><b>01</b>Product Sales</span>
+            <span class="ticker-item"><b>02</b>Sourcing</span>
+            <span class="ticker-item"><b>03</b>Transaction Support</span>
+            <span class="ticker-item"><b>04</b>Sapporo Based</span>
+          </span>
+        </div>
+      </div>
+
+      <section class="section" id="services">
+        <div class="sec-head reveal">
+          <div></div>
+          <div>
+            <span class="sec-tag">SERVICES ／ 事業内容</span>
+            <h2>販売に必要な<span class="it">対応</span>を、ひとつずつ丁寧に。</h2>
           </div>
-          <div class="card-grid">
-            <article class="service-card">
-              <span class="service-number">01</span>
-              <h3>商品販売</h3>
-              <p>日用品、雑貨、事業用商品など、幅広い商品の販売に対応します。</p>
-            </article>
-            <article class="service-card">
-              <span class="service-number">02</span>
-              <h3>仕入れ・調達</h3>
-              <p>お客様のニーズに合わせて、品質と価格のバランスを考えた商品を調達します。</p>
-            </article>
-            <article class="service-card">
-              <span class="service-number">03</span>
-              <h3>取引サポート</h3>
-              <p>ご相談から納品後の確認まで、安心して取引できる体制を整えています。</p>
-            </article>
-          </div>
+          <div class="sec-side">OUR SERVICES<b>3 / 3</b></div>
+        </div>
+
+        <div class="svc-grid">
+          <article class="svc reveal">
+            <div class="svc-head">
+              <span class="svc-no">01</span>
+              <span class="svc-arrow">↗</span>
+            </div>
+            <div class="svc-name"><h3>商品販売</h3><small>Product Sales</small></div>
+            <p class="svc-body">日用品、雑貨、事業用商品など、幅広い商品の販売に対応します。個人のお客様から法人のお客様まで、目的に合わせたお取引をご案内します。</p>
+            <div class="svc-tags"><span>日用品</span><span>雑貨</span><span>事業用商品</span><span>法人対応</span></div>
+          </article>
+
+          <article class="svc reveal">
+            <div class="svc-head">
+              <span class="svc-no">02</span>
+              <span class="svc-arrow">↗</span>
+            </div>
+            <div class="svc-name"><h3>仕入れ・調達</h3><small>Sourcing</small></div>
+            <p class="svc-body">お客様のニーズに合わせて、品質と価格のバランスを考えた商品を調達します。条件や数量なども確認しながら、無理のない取引を進めます。</p>
+            <div class="svc-tags"><span>調達相談</span><span>品質確認</span><span>価格調整</span><span>納品確認</span></div>
+          </article>
+
+          <article class="svc reveal">
+            <div class="svc-head">
+              <span class="svc-no">03</span>
+              <span class="svc-arrow">↗</span>
+            </div>
+            <div class="svc-name"><h3>取引サポート</h3><small>Support</small></div>
+            <p class="svc-body">ご相談から納品後の確認まで、安心して取引できる体制を整えています。継続的なご相談にも対応し、長く信頼いただける関係を大切にします。</p>
+            <div class="svc-tags"><span>ご相談</span><span>見積り</span><span>納品</span><span>継続取引</span></div>
+          </article>
+
+          <article class="svc reveal">
+            <div class="svc-head">
+              <span class="svc-no">04</span>
+              <span class="svc-arrow">↗</span>
+            </div>
+            <div class="svc-name"><h3>法人向け相談</h3><small>Business</small></div>
+            <p class="svc-body">法人のお客様の販売相談や継続的な仕入れ相談にも対応します。必要な商品、条件、納期などを確認しながら、適切な進め方をご提案します。</p>
+            <div class="svc-tags"><span>BtoB</span><span>継続相談</span><span>条件確認</span><span>柔軟対応</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="nums">
+        <div class="nums-grid">
+          <div class="num reveal"><b>03</b><small>MAIN SERVICES<br />主な対応領域</small></div>
+          <div class="num reveal"><b>2026</b><small>ESTABLISHED<br />設立</small></div>
+          <div class="num reveal"><b>札幌</b><small>SAPPORO<br />拠点</small></div>
+          <div class="num reveal"><b>1</b><small>ONE BY ONE<br />丁寧な取引</small></div>
         </div>
       </section>
 
       <section class="section" id="strengths">
-        <div class="section-inner split">
+        <div class="sec-head reveal">
+          <div></div>
           <div>
-            <p class="eyebrow">Strengths</p>
-            <h2>お客様に安心して選ばれる取引を目指します。</h2>
+            <span class="sec-tag">STRENGTHS ／ 強み</span>
+            <h2>お客様に<span class="it">安心して</span>選ばれる取引を。</h2>
           </div>
-          <div class="feature-list">
-            <div class="feature-item">
-              <h3>丁寧な対応</h3>
-              <p>ご相談内容を確認し、必要な商品や条件をわかりやすくご案内します。</p>
-            </div>
-            <div class="feature-item">
-              <h3>柔軟な販売体制</h3>
-              <p>個人のお客様から法人のお客様まで、目的に合わせた取引に対応します。</p>
-            </div>
-            <div class="feature-item">
-              <h3>継続的な信頼関係</h3>
-              <p>一度きりの販売ではなく、長く安心してご相談いただける関係を大切にします。</p>
-            </div>
+          <div class="sec-side">REASONS<b>3</b></div>
+        </div>
+
+        <div class="str-list">
+          <div class="str-item reveal">
+            <span class="str-no">01</span>
+            <h3 class="str-h">ご相談内容を確認し、<br /><em>わかりやすく</em>ご案内。</h3>
+            <p class="str-p">必要な商品、数量、条件を丁寧に確認し、お客様が判断しやすい形でご案内します。</p>
+          </div>
+          <div class="str-item reveal">
+            <span class="str-no">02</span>
+            <h3 class="str-h">個人・法人を問わず、<br /><em>柔軟に</em>対応。</h3>
+            <p class="str-p">取引の規模や目的に合わせて、販売方法や進め方を調整します。</p>
+          </div>
+          <div class="str-item reveal">
+            <span class="str-no">03</span>
+            <h3 class="str-h">一度きりではなく、<br /><em>長く続く</em>関係へ。</h3>
+            <p class="str-p">納品後の確認や継続的なご相談にも対応し、安心して相談できる販売会社を目指します。</p>
           </div>
         </div>
       </section>
 
-      <section class="section muted">
-        <div class="section-inner">
-          <div class="section-heading">
-            <p class="eyebrow">News</p>
-            <h2>お知らせ</h2>
+      <section class="section" id="news">
+        <div class="sec-head reveal">
+          <div></div>
+          <div>
+            <span class="sec-tag">NEWS ／ お知らせ</span>
+            <h2>最新の<span class="it">お知らせ</span>。</h2>
           </div>
-          <div class="news-list">
-            <a href="#" class="news-item">
-              <time datetime="2026-05-01">2026.05.01</time>
-              <span>公式ホームページを公開しました。</span>
-            </a>
-            <a href="#" class="news-item">
-              <time datetime="2026-04-10">2026.04.10</time>
-              <span>各種商品の販売受付を開始しました。</span>
-            </a>
-            <a href="#" class="news-item">
-              <time datetime="2026-03-18">2026.03.18</time>
-              <span>法人向け販売相談の受付を開始しました。</span>
-            </a>
-          </div>
+          <div class="sec-side">UPDATES<b>03</b></div>
+        </div>
+        <div class="news-list">
+          <a href="#" class="news reveal"><time datetime="2026-05-01">2026.05.01</time><span class="cat">RELEASE</span><span>公式ホームページを公開しました。</span><span class="arr">→</span></a>
+          <a href="#" class="news reveal"><time datetime="2026-04-10">2026.04.10</time><span class="cat">SERVICE</span><span>各種商品の販売受付を開始しました。</span><span class="arr">→</span></a>
+          <a href="#" class="news reveal"><time datetime="2026-03-18">2026.03.18</time><span class="cat">BUSINESS</span><span>法人向け販売相談の受付を開始しました。</span><span class="arr">→</span></a>
         </div>
       </section>
 
       <section class="section" id="company">
-        <div class="section-inner split">
+        <div class="sec-head reveal">
+          <div></div>
           <div>
-            <p class="eyebrow">Company</p>
-            <h2>会社概要</h2>
+            <span class="sec-tag">COMPANY ／ 会社概要</span>
+            <h2>会社<span class="it">概要</span>。</h2>
           </div>
-          <dl class="company-table">
-            <div>
-              <dt>会社名</dt>
-              <dd>合同会社KK企画</dd>
-            </div>
-            <div>
-              <dt>所在地</dt>
-              <dd>札幌市豊平区平岸1条6丁目1-25-501</dd>
-            </div>
-            <div>
-              <dt>設立</dt>
-              <dd>2026年4月</dd>
-            </div>
-            <div>
-              <dt>事業内容</dt>
-              <dd>各種商品の販売、仕入れ、取引サポート</dd>
-            </div>
-            <div>
-              <dt>運営統括責任者</dt>
-              <dd>笹栗 啓太</dd>
-            </div>
+          <div class="sec-side">PROFILE<b>LLC</b></div>
+        </div>
+        <div class="company">
+          <dl class="reveal">
+            <dt>会社名</dt><dd>合同会社KK企画</dd>
+            <dt>所在地</dt><dd>札幌市豊平区平岸1条6丁目1-25-501</dd>
+            <dt>設立</dt><dd>2026年4月</dd>
+            <dt>事業内容</dt><dd>各種商品の販売、仕入れ、取引サポート</dd>
+            <dt>運営統括責任者</dt><dd>笹栗 啓太</dd>
+            <dt>連絡先</dt><dd>info@example.com</dd>
           </dl>
+          <div class="company-card reveal">
+            <div class="em">K.</div>
+            <h3>札幌市豊平区平岸より。</h3>
+            <p>
+              誠実な取引と丁寧な対応を大切にし、各種商品の販売を通じてお客様の暮らしと事業を支えます。
+            </p>
+            <div class="map" aria-hidden="true">
+              <svg viewBox="0 0 400 180" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                  <pattern id="map-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+                    <path d="M 24 0 L 0 0 0 24" fill="none" stroke="rgba(245,241,232,0.08)" />
+                  </pattern>
+                </defs>
+                <rect width="400" height="180" fill="url(#map-grid)" />
+                <path d="M 0 100 Q 100 78 200 112 T 400 118" stroke="rgba(255,209,102,0.4)" fill="none" />
+                <circle cx="218" cy="88" r="24" fill="rgba(255,209,102,0.18)" stroke="#ffd166" />
+                <circle cx="218" cy="88" r="5" fill="#ffd166" />
+                <text x="244" y="88" fill="#ffd166" font-family="JetBrains Mono" font-size="10">SAPPORO</text>
+                <text x="244" y="104" fill="rgba(245,241,232,0.55)" font-family="JetBrains Mono" font-size="8">HIRAGISHI, TOYOHIRA</text>
+              </svg>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section class="contact-section" id="contact">
-        <div class="section-inner contact-inner">
-          <div>
-            <p class="eyebrow">Contact</p>
-            <h2>ご相談・お見積りはこちら</h2>
-            <p>商品販売やお取引に関するご相談は、お気軽にご連絡ください。</p>
-          </div>
-          <a class="button contact-button" href="mailto:info@example.com">info@example.com</a>
+      <section class="contact" id="contact">
+        <div class="contact-eyebrow">CONTACT ／ お問い合わせ</div>
+        <h2>
+          商品販売の<span class="it">ご相談</span>を、<br />
+          お気軽に。
+        </h2>
+        <div class="contact-actions">
+          <a href="mailto:info@example.com" class="btn">メールで相談する →</a>
+          <a href="#company" class="btn ghost">会社概要を見る →</a>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer">
-      <small>&copy; 2026 KK Kikaku LLC.</small>
+    <footer class="footer">
+      <span class="em">K.</span>
+      <span>© 2026 KK KIKAKU LLC. ／ ALL RIGHTS RESERVED.</span>
+      <span>SAPPORO ／ JAPAN</span>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+      const blob = document.getElementById("blob");
+      const header = document.getElementById("header");
+      const progress = document.getElementById("progress");
+      const nav = document.getElementById("nav");
+      const menuButton = document.getElementById("menuButton");
+      let targetX = 0;
+      let targetY = 0;
+      let blobX = 0;
+      let blobY = 0;
+
+      document.addEventListener("mousemove", (event) => {
+        targetX = event.clientX;
+        targetY = event.clientY;
+      });
+
+      function animateBlob() {
+        blobX += (targetX - blobX) * 0.12;
+        blobY += (targetY - blobY) * 0.12;
+        blob.style.transform = `translate(${blobX}px, ${blobY}px) translate(-50%, -50%)`;
+        requestAnimationFrame(animateBlob);
+      }
+      animateBlob();
+
+      function updateScrollState() {
+        header.classList.toggle("scrolled", window.scrollY > 30);
+        const max = document.body.scrollHeight - window.innerHeight;
+        progress.style.width = `${max > 0 ? (window.scrollY / max) * 100 : 0}%`;
+      }
+
+      window.addEventListener("scroll", updateScrollState, { passive: true });
+      updateScrollState();
+
+      menuButton.addEventListener("click", () => {
+        const open = nav.classList.toggle("open");
+        header.classList.toggle("open", open);
+        menuButton.setAttribute("aria-expanded", String(open));
+      });
+
+      nav.addEventListener("click", (event) => {
+        if (event.target.tagName !== "A") {
+          return;
+        }
+
+        nav.classList.remove("open");
+        header.classList.remove("open");
+        menuButton.setAttribute("aria-expanded", "false");
+      });
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in");
+            }
+          });
+        },
+        { threshold: 0.12 }
+      );
+
+      document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
+    </script>
   </body>
 </html>
