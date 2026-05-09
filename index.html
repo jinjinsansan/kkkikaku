@@ -1041,6 +1041,26 @@
           grid-template-columns: 1fr;
         }
 
+        .svc {
+          grid-template-columns: 72px minmax(0, 1fr);
+          gap: 18px 22px;
+          padding: 38px 0;
+        }
+
+        .svc-head {
+          grid-row: 1 / span 3;
+        }
+
+        .svc-name,
+        .svc-body,
+        .svc-tags {
+          grid-column: 2;
+        }
+
+        .svc-arrow {
+          display: none;
+        }
+
         .hero-stat {
           border-left: 0;
           padding-left: 0;
@@ -1117,6 +1137,16 @@
           font-size: 50px;
         }
 
+        .svc-name {
+          display: grid;
+          gap: 4px;
+        }
+
+        .svc-body {
+          max-width: none;
+          margin-bottom: 16px;
+        }
+
         .contact h2 {
           font-size: clamp(40px, 13vw, 72px);
         }
@@ -1144,7 +1174,21 @@
         }
 
         .svc {
-          padding: 24px;
+          grid-template-columns: 1fr;
+          gap: 14px;
+          padding: 30px 0;
+        }
+
+        .svc-head,
+        .svc-name,
+        .svc-body,
+        .svc-tags {
+          grid-column: 1;
+          grid-row: auto;
+        }
+
+        .svc-no {
+          font-size: 44px;
         }
 
         .company-card {
