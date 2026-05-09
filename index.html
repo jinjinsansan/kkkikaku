@@ -890,6 +890,69 @@
         margin-top: 58px;
       }
 
+      .contact-form {
+        display: grid;
+        width: min(760px, 100%);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin: 46px auto 0;
+        text-align: left;
+      }
+
+      .form-field {
+        display: grid;
+        gap: 8px;
+      }
+
+      .form-field.full {
+        grid-column: 1 / -1;
+      }
+
+      .form-field label {
+        color: var(--gold);
+        font-family: var(--grid);
+        font-size: 11px;
+      }
+
+      .form-field input,
+      .form-field textarea {
+        width: 100%;
+        border: 1px solid var(--rule);
+        border-radius: 8px;
+        padding: 14px 16px;
+        color: var(--ink);
+        font: inherit;
+        background: rgba(245, 241, 232, 0.06);
+        outline: none;
+        transition: border-color 160ms ease, background 160ms ease;
+      }
+
+      .form-field textarea {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      .form-field input:focus,
+      .form-field textarea:focus {
+        border-color: var(--gold);
+        background: rgba(245, 241, 232, 0.1);
+      }
+
+      .form-note {
+        grid-column: 1 / -1;
+        margin: 0;
+        color: var(--ink-soft);
+        font-size: 13px;
+        text-align: center;
+      }
+
+      .form-submit {
+        grid-column: 1 / -1;
+        justify-self: center;
+        border: 0;
+        cursor: pointer;
+      }
+
       .btn.ghost {
         border: 1px solid var(--rule);
         color: var(--ink);
@@ -1005,8 +1068,60 @@
           grid-template-columns: 1fr;
         }
 
+        .contact-form {
+          grid-template-columns: 1fr;
+        }
+
         .footer {
           grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .hero {
+          min-height: auto;
+          padding-top: 112px;
+          padding-bottom: 58px;
+        }
+
+        h1 {
+          font-size: clamp(46px, 15vw, 82px);
+        }
+
+        h2 {
+          font-size: clamp(32px, 11vw, 54px);
+        }
+
+        .hero-art {
+          position: relative;
+          right: auto;
+          bottom: auto;
+          width: 100%;
+          min-width: 0;
+          margin: 30px 0 0;
+          opacity: 0.58;
+        }
+
+        .hero-foot {
+          margin-top: 34px;
+        }
+
+        .section {
+          padding-top: 78px;
+          padding-bottom: 78px;
+        }
+
+        .svc-head {
+          margin-bottom: 30px;
+        }
+
+        .svc-no,
+        .str-no {
+          font-size: 50px;
+        }
+
+        .contact h2 {
+          font-size: clamp(40px, 13vw, 72px);
         }
       }
 
@@ -1021,13 +1136,62 @@
         }
 
         .hero-cta,
-        .btn {
+        .btn,
+        .form-submit {
           width: 100%;
+        }
+
+        .hero-tag {
+          align-items: flex-start;
+          border-radius: 16px;
+        }
+
+        .svc {
+          padding: 24px;
+        }
+
+        .company-card {
+          padding: 26px;
         }
 
         .ticker-item {
           padding: 14px 20px;
           font-size: 20px;
+        }
+      }
+
+      @media (max-width: 420px) {
+        .brand span:last-child {
+          max-width: 176px;
+          font-size: 12px;
+          line-height: 1.35;
+        }
+
+        .header {
+          padding-right: 14px;
+          padding-left: 14px;
+        }
+
+        .menu-button {
+          padding: 0 12px;
+        }
+
+        .hero,
+        .section,
+        .nums,
+        .contact,
+        .footer {
+          padding-right: 16px;
+          padding-left: 16px;
+        }
+
+        .news {
+          padding: 18px 0;
+        }
+
+        .form-field input,
+        .form-field textarea {
+          padding: 13px 14px;
         }
       }
     </style>
@@ -1222,7 +1386,7 @@
             <dt>設立</dt><dd>2026年4月</dd>
             <dt>事業内容</dt><dd>各種商品の販売、仕入れ、取引サポート</dd>
             <dt>運営統括責任者</dt><dd>笹栗 啓太</dd>
-            <dt>連絡先</dt><dd>info@example.com</dd>
+            <dt>連絡先</dt><dd>k.k.planningcompany@gmail.com</dd>
           </dl>
           <div class="company-card reveal">
             <div class="em">K.</div>
@@ -1256,9 +1420,29 @@
           お気軽に。
         </h2>
         <div class="contact-actions">
-          <a href="mailto:info@example.com" class="btn">メールで相談する →</a>
+          <a href="mailto:k.k.planningcompany@gmail.com" class="btn">メールで相談する →</a>
           <a href="#company" class="btn ghost">会社概要を見る →</a>
         </div>
+        <form class="contact-form" id="contactForm">
+          <div class="form-field">
+            <label for="name">お名前</label>
+            <input id="name" name="name" type="text" autocomplete="name" required />
+          </div>
+          <div class="form-field">
+            <label for="email">メールアドレス</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div class="form-field full">
+            <label for="subject">件名</label>
+            <input id="subject" name="subject" type="text" required />
+          </div>
+          <div class="form-field full">
+            <label for="message">お問い合わせ内容</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+          <p class="form-note">送信ボタンを押すと、宛先を設定したメール作成画面が開きます。</p>
+          <button class="btn form-submit" type="submit">フォーム内容をメールで送る →</button>
+        </form>
       </section>
     </main>
 
@@ -1274,6 +1458,8 @@
       const progress = document.getElementById("progress");
       const nav = document.getElementById("nav");
       const menuButton = document.getElementById("menuButton");
+      const contactForm = document.getElementById("contactForm");
+      const contactEmail = "k.k.planningcompany@gmail.com";
       let targetX = 0;
       let targetY = 0;
       let blobX = 0;
@@ -1315,6 +1501,25 @@
         nav.classList.remove("open");
         header.classList.remove("open");
         menuButton.setAttribute("aria-expanded", "false");
+      });
+
+      contactForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const formData = new FormData(contactForm);
+        const name = String(formData.get("name") || "").trim();
+        const email = String(formData.get("email") || "").trim();
+        const subject = String(formData.get("subject") || "").trim();
+        const message = String(formData.get("message") || "").trim();
+        const body = [
+          `お名前: ${name}`,
+          `メールアドレス: ${email}`,
+          "",
+          "お問い合わせ内容:",
+          message,
+        ].join("\n");
+
+        const mailto = `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.location.href = mailto;
       });
 
       const observer = new IntersectionObserver(
